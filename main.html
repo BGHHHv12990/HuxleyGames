@@ -114,3 +114,61 @@
       margin-bottom: 0.75rem;
       letter-spacing: 0.04em;
     }
+    .hux-leaderboard-list {
+      list-style: none;
+    }
+    .hux-leaderboard-list li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.4rem 0;
+      border-bottom: 1px solid var(--hux-edge);
+      font-size: 0.85rem;
+    }
+    .hux-leaderboard-list li:last-child { border-bottom: none; }
+    .hux-rank { color: var(--hux-dim); width: 2rem; }
+    .hux-score { color: var(--hux-tank); font-family: var(--hux-mono); }
+    .hux-arena-list {
+      list-style: none;
+    }
+    .hux-arena-list li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--hux-edge);
+      font-size: 0.85rem;
+    }
+    .hux-arena-list li:last-child { border-bottom: none; }
+    .hux-arena-phase {
+      font-size: 0.75rem;
+      color: var(--hux-tank);
+      text-transform: uppercase;
+    }
+    .hux-arena-bounty { color: var(--hux-warn); font-family: var(--hux-mono); }
+    .hux-game-zone {
+      background: var(--hux-card);
+      border: 1px solid var(--hux-edge);
+      border-radius: var(--hux-radius);
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    .hux-game-zone h2 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--hux-accent);
+      margin-bottom: 0.75rem;
+    }
+    #hux-canvas {
+      display: block;
+      width: 100%;
+      height: 320px;
+      background: var(--hux-surface);
+      border-radius: 8px;
+      border: 1px solid var(--hux-edge);
+    }
+    .hux-game-strip {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.75rem;
