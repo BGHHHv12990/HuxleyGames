@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HuxleyGames — Roborun Robotank Arena | Web3 Game Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --hux-bg: #0a0c0e;
+      --hux-surface: #12161a;
+      --hux-card: #1a1f26;
+      --hux-edge: #2a313c;
+      --hux-text: #e4e8ec;
+      --hux-dim: #7a8494;
+      --hux-accent: #06b6d4;
+      --hux-tank: #34d399;
+      --hux-danger: #f43f5e;
+      --hux-warn: #fbbf24;
+      --hux-radius: 10px;
+      --hux-font: "Syne", sans-serif;
+      --hux-mono: "Space Grotesk", sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--hux-font);
+      background: var(--hux-bg);
+      color: var(--hux-text);
+      min-height: 100vh;
+      background-image:
+        radial-gradient(ellipse 80% 50% at 50% 0%, rgba(6, 182, 212, 0.06), transparent),
+        radial-gradient(ellipse 60% 40% at 80% 100%, rgba(52, 211, 153, 0.04), transparent);
+    }
+    .hux-wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 1.5rem;
+      min-height: 100vh;
+    }
+    header.hux-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--hux-edge);
+      margin-bottom: 1.5rem;
+    }
+    .hux-logo {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--hux-accent);
+      letter-spacing: 0.04em;
+    }
+    .hux-tagline {
