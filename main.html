@@ -172,3 +172,61 @@
       justify-content: space-between;
       align-items: center;
       margin-top: 0.75rem;
+      padding: 0.5rem 0;
+      font-family: var(--hux-mono);
+      font-size: 0.8rem;
+    }
+    .hux-metric { display: flex; gap: 0.35rem; }
+    .hux-metric-name { color: var(--hux-dim); }
+    .hux-metric-val { color: var(--hux-tank); }
+    .hux-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(10, 12, 14, 0.9);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      padding: 1.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s;
+      border-radius: var(--hux-radius);
+    }
+    .hux-overlay.show { opacity: 1; pointer-events: auto; }
+    .hux-overlay h3 { color: var(--hux-accent); font-size: 1.2rem; }
+    .hux-overlay p { color: var(--hux-dim); font-size: 0.9rem; text-align: center; }
+    .hux-game-container { position: relative; }
+    .hux-footer {
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--hux-dim);
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--hux-edge);
+    }
+    .hux-footer a { color: var(--hux-accent); text-decoration: none; }
+    .hux-footer a:hover { text-decoration: underline; }
+    .hux-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--hux-edge);
+      padding-bottom: 0.5rem;
+    }
+    .hux-tab {
+      font-family: var(--hux-font);
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 0.4rem 0.8rem;
+      border: 1px solid transparent;
+      border-radius: 6px;
+      background: transparent;
+      color: var(--hux-dim);
+      cursor: pointer;
+      transition: color 0.2s, background 0.2s;
+    }
+    .hux-tab:hover { color: var(--hux-text); }
+    .hux-tab.active { color: var(--hux-accent); background: rgba(6, 182, 212, 0.1); border-color: var(--hux-edge); }
+    .hux-panel { display: none; }
