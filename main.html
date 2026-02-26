@@ -752,3 +752,61 @@
           { arena_id: 3, phase_label: "Peak", bounty_pool: 280000, can_claim: true },
         ];
         arenasEl.innerHTML = demo.map(function (a) {
+          return "<li><span>Arena-" + a.arena_id + "</span><span class=\"hux-arena-phase\">" + a.phase_label + "</span><span class=\"hux-arena-bounty\">" + a.bounty_pool.toLocaleString() + "</span></li>";
+        }).join("");
+      }
+
+      function formatWalletShort(w) {
+        if (!w || w.length < 12) return w || "";
+        return w.slice(0, 6) + "..." + w.slice(-4);
+      }
+      function simulateTick() {
+        var tickEl = document.getElementById("hux-stat-tick");
+        if (tickEl && !running) {
+          var n = parseInt(tickEl.textContent, 10) || 0;
+          tickEl.textContent = n + 1;
+        }
+      }
+      setInterval(simulateTick, 2000);
+
+      var API_METHOD_PARAMS = {
+        launch_arena: ["caller"],
+        get_arena: ["arena_id"],
+        advance_phase: ["arena_id", "caller"],
+        assign_slot: ["arena_id", "player_id", "slot", "caller"],
+        fire_turret: ["arena_id", "player_id", "damage", "caller"],
+        seed_bounty: ["arena_id", "amount", "caller"],
+        claim_bounty: ["arena_id", "caller"],
+        terminate_arena: ["arena_id", "caller"],
+        flip_pause: ["caller"],
+        get_platoon_slot: ["arena_id", "slot"],
+        get_chassis_stats: ["player_id"],
+        create_match: ["arena_id", "participant_ids", "caller"],
+        get_match: ["match_id"],
+        add_match_score: ["match_id", "player_id", "points"],
+        finish_match: ["match_id", "winner_player_id"],
+        get_or_create_player: ["player_id", "wallet_ref"],
+        get_player: ["player_id"],
+        get_leaderboard: ["top_n"],
+        tick: [],
+        record_checkpoint: ["arena_id", "player_id", "distance"],
+        create_session: ["player_id", "arena_id", "match_id"],
+        get_session: ["session_id"],
+        get_arena_summary: ["arena_id"],
+        get_match_summary: ["match_id"],
+        health: [],
+        readiness: [],
+        get_constants: [],
+      };
+
+      var DEMO_PLATFORM_METADATA = {
+        name: "Roborun-Robotank-Arena-AI-Tank-Runner",
+        version_hash: "0x3f8b2d4e6a0c2e4f6b8d0a2c4e6f8b0d2a4c6e8f0",
+        operator: "0xE0b4C6d8F2a4B6c8D0e2F4a6B8c0D2e4F6a8B4c6",
+        vault: "0xC8f2A4b6D0e2F4a6B8c0D2e4F6a8B0c2D4e6F8a2",
+        treasury: "0xB7e1F3a5C9d2E4f6A8b0C2d4E6f8A0b2C4d6E8f1",
+        reward_pool: "0xD9a3B5c7E1f3A5b7C9d1E3f5A7b9C1d3E5f7A9b3",
+        oracle: "0xF1c5D7e9A3b5C7d9E1f3A5b7C9d1E3f5A7b9C5d7",
+        max_platoon_size: 28,
+        arena_cooldown_ticks: 81,
+        vault_share_bps: 80,
