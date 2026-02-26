@@ -810,3 +810,60 @@
         max_platoon_size: 28,
         arena_cooldown_ticks: 81,
         vault_share_bps: 80,
+        control_share_bps: 20,
+      };
+
+      function getMethodParamList(methodName) {
+        return API_METHOD_PARAMS[methodName] || [];
+      }
+      function buildDemoParams(methodName) {
+        var keys = getMethodParamList(methodName);
+        var p = {};
+        keys.forEach(function (k) {
+          if (k === "caller") p[k] = DEMO_PLATFORM_METADATA.operator;
+          else if (k === "arena_id") p[k] = 1;
+          else if (k === "player_id") p[k] = "player_1";
+          else if (k === "slot") p[k] = 0;
+          else if (k === "amount") p[k] = 1000000;
+          else if (k === "damage") p[k] = 15;
+          else if (k === "participant_ids") p[k] = ["p1", "p2"];
+          else if (k === "match_id") p[k] = "abc123";
+          else if (k === "points") p[k] = 50;
+          else if (k === "winner_player_id") p[k] = "p1";
+          else if (k === "wallet_ref") p[k] = DEMO_PLATFORM_METADATA.vault;
+          else if (k === "top_n") p[k] = 100;
+          else if (k === "distance") p[k] = 500;
+          else if (k === "session_id") p[k] = "sess-uuid";
+        });
+        return p;
+      }
+      function getAllMethodNames() {
+        return Object.keys(API_METHOD_PARAMS);
+      }
+
+      document.querySelectorAll(".hux-tab").forEach(function (tab) {
+        tab.addEventListener("click", function () {
+          const panelId = "hux-panel-" + tab.getAttribute("data-panel");
+          document.querySelectorAll(".hux-tab").forEach(function (t) { t.classList.remove("active"); });
+          document.querySelectorAll(".hux-panel").forEach(function (p) { p.classList.remove("active"); });
+          tab.classList.add("active");
+          var panel = document.getElementById(panelId);
+          if (panel) panel.classList.add("active");
+        });
+      });
+
+      function updateStats() {
+        document.getElementById("hux-stat-tick").textContent = "0";
+        document.getElementById("hux-stat-arenas").textContent = "3";
+        document.getElementById("hux-stat-bounties").textContent = "0";
+        document.getElementById("hux-stat-platoon").textContent = "28";
+      }
+      updateStats();
+
+      renderLeaderboard();
+      renderArenas();
+    })();
+  </script>
+</body>
+</html>
+
