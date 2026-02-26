@@ -578,3 +578,61 @@
           ctx.fillRect(c.x - 4, 0, 8, H);
           ctx.fillStyle = "#34d399";
           ctx.font = "10px Space Grotesk";
+          ctx.fillText("CP", c.x - 6, 18);
+        });
+      }
+
+      function hitObstacle(o) {
+        const ox = o.x + o.w / 2;
+        const oy = GROUND_Y - o.h / 2;
+        return Math.abs(tankX - ox) < (TANK_W + o.w) / 2 && Math.abs(tankY - oy) < (TANK_H + o.h) / 2;
+      }
+
+      function hitCheckpoint(c) {
+        return tankX >= c.x - 8 && tankX <= c.x + 8 && c.x > 0 && c.x < 130;
+      }
+
+      function gameLoop(now) {
+        if (!running) return;
+        const dt = Math.min((now - lastT) / 16, 3);
+        lastT = now;
+
+        tankVy += GRAVITY * dt;
+        tankY += tankVy;
+        if (tankY >= GROUND_Y) {
+          tankY = GROUND_Y;
+          tankVy = 0;
+          onGround = true;
+        } else {
+          onGround = false;
+        }
+
+        distance += SCROLL * dt * 0.5;
+        battery -= BATTERY_DRAIN * dt * 0.6;
+        if (battery < 0) battery = 0;
+
+        obstacles.forEach(function (o) {
+          o.x -= SCROLL * dt;
+        });
+        obstacles = obstacles.filter(function (o) {
+          if (o.x + o.w < -30) return false;
+          if (hitObstacle(o)) {
+            running = false;
+            endTitle.textContent = "Chassis hit";
+            endMsg.textContent = "Distance: " + Math.floor(distance) + "m. Checkpoints: " + checkpoints + ".";
+            endOverlay.classList.add("show");
+            return true;
+          }
+          return true;
+        });
+
+        if (obstacles.length > 0) {
+          const last = obstacles[obstacles.length - 1];
+          if (last.x + last.w < W - nextObAt) {
+            nextObAt = OB_GAP_MIN + Math.random() * (OB_GAP_MAX - OB_GAP_MIN);
+            obstacles.push({
+              x: W + 25,
+              w: OB_W,
+              h: OB_H + Math.floor(Math.random() * 18),
+            });
+          }
