@@ -694,3 +694,61 @@
         batteryEl.textContent = "100";
         cpEl.textContent = "0";
         requestAnimationFrame(gameLoop);
+      }
+
+      function jump() {
+        if (!running) return;
+        if (onGround) {
+          tankVy = JUMP_VY;
+          onGround = false;
+        }
+      }
+
+      startBtn.addEventListener("click", startRun);
+      restartBtn.addEventListener("click", startRun);
+      document.addEventListener("keydown", function (e) {
+        if (e.code === "Space" || e.code === "ArrowUp") {
+          e.preventDefault();
+          if (endOverlay.classList.contains("show")) startRun();
+          else jump();
+        }
+      });
+
+      connectBtn.addEventListener("click", function () {
+        if (walletEl.textContent === "Not connected") {
+          walletEl.textContent = "0xB7e1...E8f1";
+        } else {
+          walletEl.textContent = "Not connected";
+        }
+      });
+
+      function renderLeaderboard() {
+        const demo = [
+          { rank: 1, player_id: "tank_alpha", wallet_ref: "0xB7e1...E8f1", total_score: 4520, wins: 12, matches: 28 },
+          { rank: 2, player_id: "cortex_7", wallet_ref: "0xC8f2...F8a2", total_score: 3890, wins: 9, matches: 24 },
+          { rank: 3, player_id: "platoon_one", wallet_ref: "0xD9a3...A9b3", total_score: 3100, wins: 7, matches: 20 },
+          { rank: 4, player_id: "hex_runner", wallet_ref: "0xE0b4...B4c6", total_score: 2650, wins: 5, matches: 18 },
+          { rank: 5, player_id: "chassis_42", wallet_ref: "0xF1c5...C5d7", total_score: 2100, wins: 4, matches: 15 },
+          { rank: 6, player_id: "runner_99", wallet_ref: "0xB7e1...E8f1", total_score: 1850, wins: 3, matches: 14 },
+          { rank: 7, player_id: "arena_vet", wallet_ref: "0xC8f2...F8a2", total_score: 1620, wins: 3, matches: 12 },
+          { rank: 8, player_id: "turret_master", wallet_ref: "0xD9a3...A9b3", total_score: 1400, wins: 2, matches: 11 },
+          { rank: 9, player_id: "battery_saver", wallet_ref: "0xE0b4...B4c6", total_score: 1180, wins: 2, matches: 10 },
+          { rank: 10, player_id: "checkpoint_king", wallet_ref: "0xF1c5...C5d7", total_score: 950, wins: 1, matches: 9 },
+          { rank: 11, player_id: "newcomer_1", wallet_ref: "0xB7e1...E8f1", total_score: 720, wins: 1, matches: 7 },
+          { rank: 12, player_id: "newcomer_2", wallet_ref: "0xC8f2...F8a2", total_score: 580, wins: 0, matches: 6 },
+          { rank: 13, player_id: "newcomer_3", wallet_ref: "0xD9a3...A9b3", total_score: 420, wins: 0, matches: 5 },
+          { rank: 14, player_id: "newcomer_4", wallet_ref: "0xE0b4...B4c6", total_score: 290, wins: 0, matches: 4 },
+          { rank: 15, player_id: "newcomer_5", wallet_ref: "0xF1c5...C5d7", total_score: 150, wins: 0, matches: 3 },
+        ];
+        leaderboardEl.innerHTML = demo.map(function (e) {
+          return "<li><span class=\"hux-rank\">#" + e.rank + "</span><span>" + e.player_id + "</span><span class=\"hux-score\">" + e.total_score.toLocaleString() + "</span></li>";
+        }).join("");
+      }
+
+      function renderArenas() {
+        const demo = [
+          { arena_id: 1, phase_label: "Engaged", bounty_pool: 125000, can_claim: false },
+          { arena_id: 2, phase_label: "Warmup", bounty_pool: 0, can_claim: false },
+          { arena_id: 3, phase_label: "Peak", bounty_pool: 280000, can_claim: true },
+        ];
+        arenasEl.innerHTML = demo.map(function (a) {
