@@ -404,3 +404,61 @@
         </ul>
         <div class="hux-section-title">API methods (roborun_robotank_arena_platform.py)</div>
         <p class="hux-platform-info">Single-file engine. Use handle_api_request(platform, method, params) for JSON API. Supported methods:</p>
+        <ul class="hux-list-small">
+          <li>config · launch_arena · get_arena · advance_phase · assign_slot · fire_turret</li>
+          <li>seed_bounty · claim_bounty · terminate_arena · flip_pause · get_platoon_slot · get_chassis_stats</li>
+          <li>create_match · get_match · add_match_score · finish_match · get_or_create_player · get_player</li>
+          <li>get_leaderboard · tick · record_checkpoint · create_session · get_session</li>
+          <li>get_arena_summary · get_match_summary · health · readiness · get_constants</li>
+        </ul>
+        <div class="hux-section-title">How to play</div>
+        <ul class="hux-list-small">
+          <li>Press <strong>Start Run</strong> to begin the AI Tank Runner. Your tank auto-runs; press <strong>Space</strong> or <strong>Up</strong> to jump over barriers.</li>
+          <li>Battery drains over time. Pass through green <strong>checkpoints</strong> (CP) to recharge. Avoid red obstacles or the run ends.</li>
+          <li>Leaderboard and Arenas panels show platform state. Connect a wallet (demo: button toggles a placeholder address).</li>
+          <li>Platform tab shows operator, vault, treasury, reward pool, oracle addresses and constants used by the Python engine. All addresses and hex values are unique to this platform and not reused from Robotank.sol, BacklineLedger, Rockaf, or other contracts.</li>
+        </ul>
+        <div class="hux-section-title">Platform exceptions (engine)</div>
+        <p class="hux-note">Unique error names; not Tank*, Ledger_*, RigCue_*.</p>
+        <ul class="hux-errors-list">
+          <li><code>ArenaEngineNotOperator</code> — Caller is not the operator cortex.</li>
+          <li><code>ArenaEngineArenaNotFound</code> — Arena id does not exist.</li>
+          <li><code>ArenaEngineArenaPaused</code> — Arena is paused.</li>
+          <li><code>ArenaEnginePhaseLocked</code> — Phase transition not allowed.</li>
+          <li><code>ArenaEnginePlatoonFull</code> — Platoon slot capacity reached.</li>
+          <li><code>ArenaEngineBatteryDepleted</code> — Chassis battery too low.</li>
+          <li><code>ArenaEngineCooldownActive</code> — Turret or action on cooldown.</li>
+          <li><code>ArenaEngineChassisNotFound</code> — Chassis or player not registered.</li>
+          <li><code>ArenaEngineMatchNotFound</code> / <code>ArenaEngineMatchNotActive</code> — Match state invalid.</li>
+          <li><code>ArenaEngineInvalidAmount</code> / <code>ArenaEngineZeroDisallowed</code> — Value or address invalid.</li>
+        </ul>
+        <div class="hux-section-title">Example request (handle_api_request)</div>
+        <div class="hux-code-block">handle_api_request(platform, "launch_arena", { "caller": "0xE0b4C6d8F2a4B6c8D0e2F4a6B8c0D2e4F6a8B4c6" })</div>
+        <div class="hux-section-title">Example response (launch_arena)</div>
+        <div class="hux-code-block">{ "arena_id": 1, "global_tick": 1 }</div>
+        <div class="hux-section-title">Example response (get_leaderboard)</div>
+        <div class="hux-code-block">{ "entries": [ { "rank": 1, "player_id": "tank_alpha", "wallet_ref": "0xB7e1...E8f1", "total_score": 4520, "wins": 12, "matches": 28 } ] }</div>
+        <div class="hux-section-title">Example response (health)</div>
+        <div class="hux-code-block">{ "ok": true, "config_errors": [], "arena_counter": 0, "global_tick": 0, "paused": false }</div>
+        <div class="hux-section-title">Phase labels (arena)</div>
+        <ul class="hux-list-small">
+          <li>0: Idle · 1: Warmup · 2: Engaged · 3: Peak · 4: Closure · 5: Settle · 6: Terminal</li>
+        </ul>
+        <div class="hux-section-title">Address and hex uniqueness</div>
+        <p class="hux-platform-info">The five addresses (Operator, Vault, Treasury, Reward pool, Oracle) and four hex salts above are used only in this platform and in roborun_robotank_arena_platform.py. They are not reused from Robotank.sol, BacklineLedger, Rockaf, RigCue, HermesAI, EwAI, ThornGate, FlintLock, or any other contract or code generation. confirm_addresses_unique() and confirm_hex_salts_unique() in the Python engine verify this.</p>
+        <div class="hux-section-title">Build</div>
+        <p class="hux-platform-info">HuxleyGames · Roborun-Robotank-Arena-AI-Tank-Runner · Web3 online game platform · Single-file Python engine: roborun_robotank_arena_platform.py (1970–2500 LOC). Addresses and hex confirmed unique; no reuse from other code generations.</p>
+        <div class="hux-section-title">Related</div>
+        <ul class="hux-list-small">
+          <li>Robotank.sol (Solidity) — on-chain arena, platoon, bounty; different addresses.</li>
+          <li>roborun/index.html — Roborun tank runner game (Orbitron theme).</li>
+          <li>BacklineLedger, Rockaf, RigCue — other contracts; no address/hex overlap with this platform.</li>
+          <li>Python: create_platform(), handle_api_request(), run_simulation(), run_simulation_v2(), health_check().</li>
+          <li>Addresses and hex in this UI match roborun_robotank_arena_platform.py; confirm_addresses_unique() / confirm_hex_salts_unique().</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="hux-footer">
+      Roborun-Robotank-Arena · Platform engine: <code>roborun_robotank_arena_platform.py</code> ·
+      <a href="../roborun/">Roborun</a> · Addresses and hex in this UI match the Python engine and are unique (not reused from other contracts).
