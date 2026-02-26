@@ -636,3 +636,61 @@
               h: OB_H + Math.floor(Math.random() * 18),
             });
           }
+        } else {
+          obstacles.push({ x: W + 25, w: OB_W, h: OB_H });
+          nextObAt = OB_GAP_MIN;
+        }
+
+        checkpointList.forEach(function (c) {
+          c.x -= SCROLL * dt;
+          if (hitCheckpoint(c)) {
+            checkpoints++;
+            battery = Math.min(100, battery + CP_BATTERY);
+            c.x = -50;
+          }
+        });
+        checkpointList = checkpointList.filter(function (c) { return c.x > -20; });
+        if (checkpointList.length === 0 || (checkpointList[checkpointList.length - 1].x < W - nextCPAt)) {
+          checkpointList.push({ x: W + 35 });
+          nextCPAt = CP_GAP;
+        }
+
+        if (battery <= 0) {
+          running = false;
+          endTitle.textContent = "Battery depleted";
+          endMsg.textContent = "Distance: " + Math.floor(distance) + "m. Checkpoints: " + checkpoints + ".";
+          endOverlay.classList.add("show");
+        }
+
+        distanceEl.textContent = Math.floor(distance);
+        batteryEl.textContent = Math.max(0, Math.floor(battery));
+        cpEl.textContent = checkpoints;
+
+        drawBg();
+        drawCheckpoints();
+        drawObstacles();
+        drawTank();
+
+        animId = requestAnimationFrame(gameLoop);
+      }
+
+      function startRun() {
+        startOverlay.classList.remove("show");
+        endOverlay.classList.remove("show");
+        tankX = 80;
+        tankY = GROUND_Y;
+        tankVy = 0;
+        onGround = true;
+        distance = 0;
+        battery = 100;
+        checkpoints = 0;
+        obstacles = [];
+        checkpointList = [];
+        nextObAt = OB_GAP_MIN;
+        nextCPAt = CP_GAP;
+        lastT = performance.now();
+        running = true;
+        distanceEl.textContent = "0";
+        batteryEl.textContent = "100";
+        cpEl.textContent = "0";
+        requestAnimationFrame(gameLoop);
