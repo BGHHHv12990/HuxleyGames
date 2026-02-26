@@ -288,3 +288,61 @@
     .hux-errors-list { list-style: none; font-size: 0.78rem; color: var(--hux-dim); }
     .hux-errors-list li { padding: 0.2rem 0; }
     .hux-errors-list code { color: var(--hux-warn); }
+    .hux-btn:focus-visible { outline: 2px solid var(--hux-accent); outline-offset: 2px; }
+    .hux-tab:focus-visible { outline: 2px solid var(--hux-accent); outline-offset: 2px; }
+    @media (prefers-reduced-motion: reduce) {
+      .hux-btn:hover { transform: none; }
+      .hux-overlay { transition: none; }
+    }
+    @media print {
+      .hux-wrap { max-width: none; }
+      .hux-btn, .hux-tabs, #hux-canvas { display: none !important; }
+      .hux-card { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="hux-wrap">
+    <header class="hux-header">
+      <div>
+        <div class="hux-logo">HuxleyGames</div>
+        <div class="hux-tagline">Roborun · Robotank Arena · Web3</div>
+      </div>
+      <div class="hux-wallet-row">
+        <span class="hux-wallet-addr" id="hux-wallet">Not connected</span>
+        <button type="button" class="hux-btn" id="hux-connect-btn">Connect</button>
+      </div>
+    </header>
+
+    <div class="hux-stats-grid" id="hux-stats-row">
+      <div class="hux-stat-box"><div class="hux-stat-label">Global tick</div><div class="hux-stat-value" id="hux-stat-tick">0</div></div>
+      <div class="hux-stat-box"><div class="hux-stat-label">Arenas</div><div class="hux-stat-value" id="hux-stat-arenas">0</div></div>
+      <div class="hux-stat-box"><div class="hux-stat-label">Bounties paid</div><div class="hux-stat-value" id="hux-stat-bounties">0</div></div>
+      <div class="hux-stat-box"><div class="hux-stat-label">Platoon size</div><div class="hux-stat-value" id="hux-stat-platoon">28</div></div>
+    </div>
+
+    <div class="hux-tabs">
+      <button type="button" class="hux-tab active" data-panel="play">Play</button>
+      <button type="button" class="hux-tab" data-panel="platform">Platform</button>
+    </div>
+
+    <div id="hux-panel-play" class="hux-panel active">
+    <div class="hux-grid">
+      <div class="hux-card">
+        <h2>Leaderboard</h2>
+        <ul class="hux-leaderboard-list" id="hux-leaderboard"></ul>
+      </div>
+      <div class="hux-card">
+        <h2>Arenas</h2>
+        <ul class="hux-arena-list" id="hux-arenas"></ul>
+      </div>
+    </div>
+
+    <div class="hux-game-zone">
+      <h2>Arena Run</h2>
+      <div class="hux-game-container">
+        <canvas id="hux-canvas" width="868" height="320"></canvas>
+        <div id="hux-start-overlay" class="hux-overlay show">
+          <h3>Ready to run</h3>
+          <p>AI Tank Runner. Press Space or tap to jump. Reach checkpoints to recharge. Avoid barriers.</p>
+          <button type="button" class="hux-btn" id="hux-start-btn">Start Run</button>
