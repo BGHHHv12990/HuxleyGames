@@ -462,3 +462,61 @@
     <p class="hux-footer">
       Roborun-Robotank-Arena · Platform engine: <code>roborun_robotank_arena_platform.py</code> ·
       <a href="../roborun/">Roborun</a> · Addresses and hex in this UI match the Python engine and are unique (not reused from other contracts).
+    </p>
+  </div>
+
+  <script>
+    (function () {
+      const canvas = document.getElementById("hux-canvas");
+      const ctx = canvas.getContext("2d");
+      const startOverlay = document.getElementById("hux-start-overlay");
+      const endOverlay = document.getElementById("hux-end-overlay");
+      const startBtn = document.getElementById("hux-start-btn");
+      const restartBtn = document.getElementById("hux-restart-btn");
+      const distanceEl = document.getElementById("hux-distance");
+      const batteryEl = document.getElementById("hux-battery");
+      const cpEl = document.getElementById("hux-cp");
+      const endTitle = document.getElementById("hux-end-title");
+      const endMsg = document.getElementById("hux-end-msg");
+      const walletEl = document.getElementById("hux-wallet");
+      const connectBtn = document.getElementById("hux-connect-btn");
+      const leaderboardEl = document.getElementById("hux-leaderboard");
+      const arenasEl = document.getElementById("hux-arenas");
+
+      const W = canvas.width;
+      const H = canvas.height;
+      const GROUND_Y = H - 52;
+      const TANK_W = 42;
+      const TANK_H = 26;
+      const JUMP_VY = -13;
+      const GRAVITY = 0.6;
+      const SCROLL = 5.5;
+      const BATTERY_DRAIN = 0.06;
+      const CP_BATTERY = 28;
+      const OB_W = 30;
+      const OB_H = 40;
+      const OB_GAP_MIN = 200;
+      const OB_GAP_MAX = 350;
+      const CP_GAP = 550;
+
+      let running = false;
+      let tankX = 80;
+      let tankY = GROUND_Y;
+      let tankVy = 0;
+      let onGround = true;
+      let distance = 0;
+      let battery = 100;
+      let checkpoints = 0;
+      let obstacles = [];
+      let checkpointList = [];
+      let nextObAt = OB_GAP_MIN;
+      let nextCPAt = CP_GAP;
+      let lastT = 0;
+      let animId = 0;
+
+      function resizeCanvas() {
+        const container = canvas.parentElement;
+        const r = Math.min(container.clientWidth / W, 1);
+        canvas.style.width = W * r + "px";
+        canvas.style.height = H * r + "px";
+      }
